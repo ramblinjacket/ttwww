@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toss Tally - Cornhole Scorekeeping App</title>
+  <meta name="description" content="Turn your iPhone into a courtside scoreboard with live scoring, detailed stats, and Bluetooth broadcasting. Track every toss, win every game.">
+  <meta name="keywords" content="cornhole, scorekeeping, app, iOS, iPhone, score tracker, bag toss">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Toss Tally - Cornhole Scorekeeping App">
+  <meta property="og:description" content="Turn your iPhone into a courtside scoreboard with live scoring, detailed stats, and Bluetooth broadcasting.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.tosstally.in">
+
+  <!-- Favicon (using emoji as data URI for simplicity) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌽</text></svg>">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #FF9500;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 140px 24px 80px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 149, 0, 0.2);
+      border: 1px solid rgba(255, 149, 0, 0.4);
+      color: #FF9500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: #FF9500;
+    }
+
+    .hero p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0 auto 40px;
+      max-width: 600px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      box-shadow: 0 4px 24px rgba(255, 149, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 32px rgba(255, 149, 0, 0.5);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Features Section */
+    .features {
+      background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%);
+      padding: 80px 24px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .section-badge.green {
+      background: rgba(52, 199, 89, 0.2);
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      color: #34C759;
+    }
+
+    .section-badge.blue {
+      background: rgba(0, 122, 255, 0.2);
+      border: 1px solid rgba(0, 122, 255, 0.4);
+      color: #007AFF;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+    }
+
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      flex: 1 1 280px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon.orange { background: rgba(255, 149, 0, 0.2); }
+    .feature-icon.blue { background: rgba(0, 122, 255, 0.2); }
+    .feature-icon.green { background: rgba(52, 199, 89, 0.2); }
+    .feature-icon.purple { background: rgba(175, 82, 222, 0.2); }
+    .feature-icon.red { background: rgba(255, 59, 48, 0.2); }
+    .feature-icon.teal { background: rgba(90, 200, 250, 0.2); }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      background: #1a1a2e;
+      padding: 80px 24px;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .step {
+      flex: 1 1 250px;
+      max-width: 280px;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .step-number.orange {
+      background: linear-gradient(135deg, rgba(255, 149, 0, 0.3), rgba(255, 149, 0, 0.1));
+      border: 2px solid #FF9500;
+      color: #FF9500;
+    }
+
+    .step-number.blue {
+      background: linear-gradient(135deg, rgba(0, 122, 255, 0.3), rgba(0, 122, 255, 0.1));
+      border: 2px solid #007AFF;
+      color: #007AFF;
+    }
+
+    .step-number.green {
+      background: linear-gradient(135deg, rgba(52, 199, 89, 0.3), rgba(52, 199, 89, 0.1));
+      border: 2px solid #34C759;
+      color: #34C759;
+    }
+
+    .step h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      max-width: 900px;
+      margin: 64px auto 0;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(255, 149, 0, 0.1), rgba(255, 107, 0, 0.05));
+      border: 1px solid rgba(255, 149, 0, 0.2);
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .final-cta h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .final-cta p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #12121f;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #FF9500;
+    }
+
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .section-header h2 {
+        font-size: 28px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .nav-links a {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 120px 16px 60px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">🌽 Toss Tally</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">🌽 Cornhole Scorekeeping App</div>
+      <h1>Track Every Toss.<br><span>Win Every Game.</span></h1>
+      <p>Turn your iPhone into a courtside scoreboard with live scoring, detailed stats, and Bluetooth broadcasting to share the action with everyone.</p>
+      <div class="cta-buttons">
+        <a href="https://testflight.apple.com/join/qv4GwRqQ" class="btn-primary">
+          <svg width="20" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Join the Beta
+        </a>
+        <a href="#features" class="btn-secondary">See Features</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="section-header">
+      <div class="section-badge green">Powerful Features</div>
+      <h2>Everything You Need to Dominate</h2>
+      <p>Built by cornhole players, for cornhole players</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon orange">🎯</div>
+        <h3>Quick Score Mode</h3>
+        <p>Tap to score instantly. No fuss, just fast tracking for casual games.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon blue">📊</div>
+        <h3>Detailed Bag Tracking</h3>
+        <p>Log every throw as In, On, or Off. See exactly where your bags land.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon green">📈</div>
+        <h3>Performance Stats</h3>
+        <p>Points per round, shooting percentages, and trends over time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon purple">📡</div>
+        <h3>Bluetooth Broadcast</h3>
+        <p>Share live scores with spectators' phones. No WiFi needed.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon red">👥</div>
+        <h3>Team Rosters</h3>
+        <p>Save your regular players and teammates for quick match setup.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon teal">🏆</div>
+        <h3>Match History</h3>
+        <p>Review past games, track rivalries, and celebrate your victories.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-badge blue">Get Started</div>
+      <h2>Up and Running in Seconds</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number orange">1</div>
+        <h3>Join the Beta</h3>
+        <p>Get Toss Tally via TestFlight. No account required, completely free.</p>
+      </div>
+      <div class="step">
+        <div class="step-number blue">2</div>
+        <h3>Set Up Teams</h3>
+        <p>Add player names and pick team colors. Takes under a minute.</p>
+      </div>
+      <div class="step">
+        <div class="step-number green">3</div>
+        <h3>Start Scoring</h3>
+        <p>Tap to track each throw. Watch your stats grow over time.</p>
+      </div>
+    </div>
+    <div class="final-cta">
+      <h3>Ready to Elevate Your Game?</h3>
+      <p>Be one of the first to try Toss Tally and help shape its future.</p>
+      <a href="https://testflight.apple.com/join/qv4GwRqQ" class="btn-primary">
+        <svg width="20" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Join the Beta on TestFlight
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copyright">&copy; 2025 Toss Tally. All rights reserved.</p>
+  </footer>
+</body>
+</html>

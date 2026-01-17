@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Toss Tally</title>
+  <meta name="description" content="Toss Tally Privacy Policy. Learn how we handle your data - everything stays local on your device.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌽</text></svg>">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: #FF9500;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    .nav {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #FF9500;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 60px 24px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .page-header .subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), rgba(52, 199, 89, 0.05));
+      border: 1px solid rgba(52, 199, 89, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .highlight-box p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .highlight-box strong {
+      color: #34C759;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #FF9500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section h2 .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: rgba(255, 149, 0, 0.2);
+    }
+
+    .section p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 16px;
+    }
+
+    .section ul {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .section ul li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .section ul li::before {
+      content: "•";
+      position: absolute;
+      left: 8px;
+      color: #FF9500;
+      font-weight: bold;
+    }
+
+    .data-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .data-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .data-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0;
+    }
+
+    .contact-box {
+      background: rgba(255, 149, 0, 0.1);
+      border: 1px solid rgba(255, 149, 0, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .contact-box h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .contact-box p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 16px;
+    }
+
+    .contact-box a {
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #12121f;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #FF9500;
+    }
+
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .section h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">🌽 Toss Tally</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html" class="active">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="content">
+      <div class="page-header">
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">Last updated: January 2025</p>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Your privacy is simple:</strong> Everything you enter stays local on your device unless you explicitly share it. No servers, no analytics, no tracking.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">📱</span> What We Store</h2>
+        <p>Toss Tally stores the following information locally on your device:</p>
+
+        <div class="data-card">
+          <h3>Match Information</h3>
+          <p>Team names, player identifiers, scoring records, and gameplay results from your cornhole games.</p>
+        </div>
+
+        <div class="data-card">
+          <h3>Player Directory</h3>
+          <p>Optional participant names with calculated statistics to track performance over time.</p>
+        </div>
+
+        <div class="data-card">
+          <h3>Application Settings</h3>
+          <p>Visual preferences, team configurations, and match states to personalize your experience.</p>
+        </div>
+
+        <p>All information remains in the app's private storage area and is completely removed when you delete the app.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">📡</span> Bluetooth Sharing</h2>
+        <p>Toss Tally offers an optional Bluetooth Low Energy (BLE) broadcasting feature that transmits current match details to nearby devices. This feature:</p>
+        <ul>
+          <li>Requires explicit user enablement - it's always off by default</li>
+          <li>Operates without internet connectivity</li>
+          <li>Only shares match scores with devices you choose to connect with</li>
+          <li>Can be disabled at any time</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">🚫</span> What We Don't Collect</h2>
+        <p>Toss Tally does <strong>not</strong> collect:</p>
+        <ul>
+          <li>Camera footage or photos</li>
+          <li>Location data or GPS information</li>
+          <li>Audio recordings or microphone data</li>
+          <li>Contact lists or personal information</li>
+          <li>Usage analytics or behavioral data</li>
+          <li>Advertising identifiers</li>
+        </ul>
+        <p>We do not integrate any third-party services, advertising frameworks, or analytics libraries. The app uses only native Apple system tools.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">🔒</span> Data Security</h2>
+        <p>Your data is protected by iOS security measures including:</p>
+        <ul>
+          <li>Device encryption</li>
+          <li>App sandboxing (other apps cannot access Toss Tally data)</li>
+          <li>Biometric authentication (if enabled on your device)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">🎛️</span> Your Control</h2>
+        <p>You maintain complete control over your data:</p>
+        <ul>
+          <li><strong>Edit:</strong> Modify any match or player information within the app</li>
+          <li><strong>Delete:</strong> Remove individual matches or clear all data from settings</li>
+          <li><strong>Uninstall:</strong> Deleting the app removes all associated data permanently</li>
+        </ul>
+      </div>
+
+      <div class="contact-box">
+        <h3>Questions?</h3>
+        <p>If you have any questions about this privacy policy, please contact us.</p>
+        <a href="mailto:toss.tally@gmail.com">toss.tally@gmail.com</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copyright">&copy; 2025 Toss Tally. All rights reserved.</p>
+  </footer>
+</body>
+</html>
