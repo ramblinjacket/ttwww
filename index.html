@@ -96,11 +96,13 @@
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       padding: 140px 24px 80px;
       text-align: center;
+      overflow: visible;
     }
 
     .hero-content {
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
     }
 
     .badge {
@@ -395,6 +397,100 @@
       font-size: 13px;
     }
 
+    /* No Ads Badge */
+    .no-ads-badge {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 90px;
+      height: 90px;
+      z-index: 10;
+      animation: slow-rotate 15s linear infinite;
+    }
+
+    .no-ads-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes slow-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Privacy Callout */
+    .privacy-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), rgba(52, 199, 89, 0.05));
+      border: 2px solid rgba(52, 199, 89, 0.5);
+      padding: 16px 24px;
+      border-radius: 16px;
+      margin-top: 40px;
+      position: relative;
+      animation: pulse-border 2s ease-in-out infinite;
+    }
+
+    .privacy-callout::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      background: #34C759;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .privacy-callout::after {
+      content: '✓';
+      position: absolute;
+      top: -6px;
+      right: -2px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+    }
+
+    @keyframes pulse-border {
+      0%, 100% {
+        border-color: rgba(52, 199, 89, 0.5);
+        box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.2);
+      }
+      50% {
+        border-color: rgba(52, 199, 89, 0.8);
+        box-shadow: 0 0 20px 4px rgba(52, 199, 89, 0.15);
+      }
+    }
+
+    .privacy-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .privacy-text {
+      text-align: left;
+    }
+
+    .privacy-text strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      color: #34C759;
+      margin-bottom: 2px;
+    }
+
+    .privacy-text span {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .hero h1 {
@@ -415,6 +511,13 @@
 
       .nav-links a {
         font-size: 14px;
+      }
+
+      .no-ads-badge {
+        width: 80px;
+        height: 80px;
+        top: -15px;
+        left: 0;
       }
     }
 
@@ -441,6 +544,28 @@
       .nav-links {
         gap: 16px;
       }
+
+      .privacy-callout {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        margin-top: 32px;
+      }
+
+      .privacy-text {
+        text-align: center;
+      }
+
+      .privacy-icon {
+        font-size: 28px;
+      }
+
+      .no-ads-badge {
+        width: 70px;
+        height: 70px;
+        top: -20px;
+        left: 5px;
+      }
     }
   </style>
 </head>
@@ -461,6 +586,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
+      <div class="no-ads-badge"><img src="no-ads.png" alt="No Ads!"></div>
       <div class="badge">🌽 Cornhole Scorekeeping App</div>
       <h1>Track Every Toss.<br><span>Win Every Game.</span></h1>
       <p>Turn your iPhone into a courtside scoreboard with live scoring, detailed stats, and Bluetooth broadcasting to share the action with everyone.</p>
@@ -470,6 +596,13 @@
           Join the Beta
         </a>
         <a href="#features" class="btn-secondary">See Features</a>
+      </div>
+      <div class="privacy-callout">
+        <span class="privacy-icon">🔒</span>
+        <div class="privacy-text">
+          <strong>Zero Tracking. Zero Ads. Ever.</strong>
+          <span>We don't collect, sell, or share any of your data. Period.</span>
+        </div>
       </div>
     </div>
   </section>
