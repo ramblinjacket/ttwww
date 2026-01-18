@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help Guide - Toss Tally</title>
+  <meta name="description" content="Complete guide to using Toss Tally, the cornhole scorekeeping app for iOS. Learn about scoring modes, statistics, multiplayer features, and more.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌽</text></svg>">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: #FF9500;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #FF9500;
+      text-decoration: none;
+    }
+
+    /* Main Layout */
+    .main {
+      flex: 1;
+      padding: 80px 24px 60px;
+      margin-top: 60px;
+    }
+
+    .help-layout {
+      display: flex;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Table of Contents - Sidebar */
+    .help-toc {
+      position: sticky;
+      top: 100px;
+      width: 240px;
+      flex-shrink: 0;
+      height: fit-content;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+
+    .help-toc h2 {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 16px;
+    }
+
+    .help-toc ul {
+      list-style: none;
+    }
+
+    .help-toc li {
+      margin-bottom: 8px;
+    }
+
+    .help-toc a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.2s;
+    }
+
+    .help-toc a:hover {
+      background: rgba(255, 149, 0, 0.1);
+      color: #FF9500;
+      text-decoration: none;
+    }
+
+    .help-toc a.active {
+      background: rgba(255, 149, 0, 0.15);
+      color: #FF9500;
+      border-left: 3px solid #FF9500;
+      padding-left: 9px;
+    }
+
+    /* Content */
+    .help-content {
+      flex: 1;
+      max-width: 800px;
+      min-width: 0;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 149, 0, 0.3), rgba(255, 149, 0, 0.1));
+      border: 2px solid #FF9500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 24px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Sections */
+    .help-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .help-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #FF9500;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .help-section h2 .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: rgba(255, 149, 0, 0.2);
+    }
+
+    .help-section h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: white;
+    }
+
+    .help-section h4 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .help-section p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 16px;
+    }
+
+    .help-section ul,
+    .help-section ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .help-section li {
+      margin-bottom: 8px;
+    }
+
+    .help-section strong {
+      color: white;
+    }
+
+    /* Tables */
+    .help-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    .help-table th,
+    .help-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .help-table th {
+      background: rgba(255, 149, 0, 0.1);
+      color: #FF9500;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .help-table td {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .help-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Inline code/button styling */
+    .key {
+      display: inline-block;
+      background: rgba(255, 149, 0, 0.15);
+      border: 1px solid rgba(255, 149, 0, 0.3);
+      color: #FF9500;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Tip boxes */
+    .tip-box {
+      background: rgba(52, 199, 89, 0.1);
+      border: 1px solid rgba(52, 199, 89, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .tip-box.blue {
+      background: rgba(0, 122, 255, 0.1);
+      border-color: rgba(0, 122, 255, 0.3);
+    }
+
+    .tip-box strong {
+      color: #34C759;
+    }
+
+    .tip-box.blue strong {
+      color: #007AFF;
+    }
+
+    /* FAQ Accordions */
+    .faq-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 16px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::before {
+      content: "+";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 149, 0, 0.2);
+      color: #FF9500;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] summary::before {
+      content: "-";
+    }
+
+    .faq-item summary:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-answer {
+      padding: 0 20px 16px 56px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Sub-sections */
+    .subsection {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .subsection h4 {
+      margin-top: 0;
+    }
+
+    /* Footer */
+    .footer {
+      background: #12121f;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #FF9500;
+    }
+
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .help-layout {
+        flex-direction: column;
+      }
+
+      .help-toc {
+        position: static;
+        width: 100%;
+        margin-bottom: 32px;
+      }
+
+      .help-toc ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .help-toc li {
+        margin-bottom: 0;
+      }
+
+      .help-toc a {
+        padding: 6px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .help-section {
+        padding: 24px 20px;
+      }
+
+      .help-section h2 {
+        font-size: 24px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .help-table {
+        font-size: 13px;
+      }
+
+      .help-table th,
+      .help-table td {
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">🌽 Toss Tally</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/help.html" class="active">Help</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="help-layout">
+      <!-- Table of Contents -->
+      <aside class="help-toc">
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="#getting-started">Getting Started</a></li>
+          <li><a href="#setting-up">Setting Up a Match</a></li>
+          <li><a href="#scoring-modes">Scoring Modes</a></li>
+          <li><a href="#keeping-score">Keeping Score</a></li>
+          <li><a href="#scoring-rules">Scoring Rules</a></li>
+          <li><a href="#multiplayer">Multiplayer</a></li>
+          <li><a href="#statistics">Statistics</a></li>
+          <li><a href="#match-history">Match History</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+          <li><a href="#glossary">Glossary</a></li>
+        </ul>
+      </aside>
+
+      <!-- Content -->
+      <article class="help-content">
+        <div class="page-header">
+          <div class="page-icon">📖</div>
+          <h1>Help Guide</h1>
+          <p>Everything you need to know about Toss Tally</p>
+        </div>
+
+        <!-- Getting Started -->
+        <section id="getting-started" class="help-section">
+          <h2><span class="icon">🚀</span> Getting Started</h2>
+
+          <h3>Quick Start</h3>
+          <p>Get scoring in 5 easy steps:</p>
+          <ol>
+            <li><strong>Open Toss Tally</strong> and you'll land on the Setup tab</li>
+            <li><strong>Enter team names</strong> by tapping the text fields</li>
+            <li><strong>Tap "Start New Match"</strong> at the bottom of the screen</li>
+            <li><strong>Select a scoring mode</strong> (Tap to Score for quick games, Bag Scoring for detailed tracking)</li>
+            <li><strong>Start scoring</strong> — swipe to the Scorekeeping tab and record each round</li>
+          </ol>
+
+          <h3>App Overview</h3>
+          <p>Toss Tally has three main tabs you can swipe between:</p>
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th>Tab</th>
+                <th>Icon</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Setup</strong></td>
+                <td>Gear</td>
+                <td>Configure teams, players, match format, and broadcasting</td>
+              </tr>
+              <tr>
+                <td><strong>Scorekeeping</strong></td>
+                <td>Center</td>
+                <td>Record scores during gameplay</td>
+              </tr>
+              <tr>
+                <td><strong>Feed</strong></td>
+                <td>Activity</td>
+                <td>Watch nearby matches and view statistics</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Screen Navigation</h3>
+          <ul>
+            <li><strong>Swipe left or right</strong> to move between tabs</li>
+            <li>The current tab is indicated by the position of the view</li>
+            <li>During your first use, on-screen hints will guide you through swiping</li>
+          </ul>
+        </section>
+
+        <!-- Setting Up a Match -->
+        <section id="setting-up" class="help-section">
+          <h2><span class="icon">⚙️</span> Setting Up a Match</h2>
+          <p>Before starting a game, configure your match settings on the Setup tab.</p>
+
+          <h3>Team Names and Colors</h3>
+          <p><strong>To change a team name:</strong></p>
+          <ul>
+            <li>Tap the team name text field</li>
+            <li>Type the new name</li>
+            <li>Tap elsewhere or press return to save</li>
+          </ul>
+
+          <p><strong>To change a team color:</strong></p>
+          <ul>
+            <li>Tap the colored circle next to the team name</li>
+            <li>Select a new color from the picker</li>
+            <li>The color appears on score cards and broadcasts</li>
+          </ul>
+
+          <p><strong>To swap team positions:</strong></p>
+          <ul>
+            <li>Tap the <span class="key">Swap</span> button between the two teams</li>
+            <li>This switches which team appears on the left vs. right</li>
+          </ul>
+
+          <h3>Match Format</h3>
+          <p>Choose how many games make up your match:</p>
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Games to Win</th>
+                <th>Maximum Games</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Best 1 of 1</td><td>1</td><td>1</td></tr>
+              <tr><td>Best 2 of 3</td><td>2</td><td>3</td></tr>
+              <tr><td>Best 3 of 5</td><td>3</td><td>5</td></tr>
+              <tr><td>Best 4 of 7</td><td>4</td><td>7</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Best 2 of 3</strong> is standard for most casual and competitive play. Use <strong>Best 1 of 1</strong> for quick games or <strong>Best 3 of 5</strong> for tournament finals.</p>
+
+          <h3>Adding Players</h3>
+          <p>For doubles play, you can add up to 2 players per team:</p>
+          <ol>
+            <li>Tap the player section for a team</li>
+            <li>Select an existing player from your directory, or tap "Add New Player"</li>
+            <li>Enter the player's name</li>
+            <li>Repeat for additional players</li>
+          </ol>
+
+          <p><strong>Managing your player directory:</strong></p>
+          <ul>
+            <li>Swipe left on a player name to delete them</li>
+            <li>Tap a player name to edit it</li>
+            <li>Players are saved across all future matches</li>
+          </ul>
+
+          <h3>Scoring Mode Selection</h3>
+          <p>When you tap <span class="key">Start New Match</span>, you'll choose a scoring mode:</p>
+          <ul>
+            <li><strong>Tap to Score</strong> — Quick and simple, best for casual games</li>
+            <li><strong>Bag Scoring</strong> — Detailed tracking with statistics</li>
+          </ul>
+          <div class="tip-box blue">
+            <strong>Note:</strong> Once a match starts, the scoring mode cannot be changed. Start a new match to switch modes.
+          </div>
+        </section>
+
+        <!-- Scoring Modes -->
+        <section id="scoring-modes" class="help-section">
+          <h2><span class="icon">🎯</span> Scoring Modes</h2>
+          <p>Toss Tally offers two main scoring approaches, each suited to different play styles.</p>
+
+          <div class="subsection">
+            <h3>Tap to Score</h3>
+            <p><strong>Best for:</strong> Casual games, quick scoring, when you don't need detailed statistics</p>
+            <p><strong>How it works:</strong></p>
+            <ul>
+              <li>The screen rotates to landscape orientation</li>
+              <li>Each team has a large score panel</li>
+              <li>Tap the <strong>top half</strong> of a panel to add points (+1)</li>
+              <li>Tap the <strong>bottom half</strong> to subtract points (-1)</li>
+              <li>Scores update instantly with visual feedback</li>
+            </ul>
+            <p><strong>Features:</strong></p>
+            <ul>
+              <li>Large, easy-to-read score display</li>
+              <li>Quick tap gestures for fast-paced games</li>
+              <li>Game counter shows progress in multi-game matches</li>
+              <li>Winner announcement when a team reaches 21</li>
+            </ul>
+          </div>
+
+          <div class="subsection">
+            <h3>Bag Scoring</h3>
+            <p><strong>Best for:</strong> Competitive play, tracking player statistics, detailed game analysis</p>
+            <p><strong>How it works:</strong></p>
+            <ul>
+              <li>The screen stays in portrait orientation</li>
+              <li>Record each bag's landing individually</li>
+              <li>Statistics are calculated automatically</li>
+            </ul>
+
+            <h4>Track All Bags</h4>
+            <p>Record every bag thrown:</p>
+            <ul>
+              <li>Tap <span class="key">In</span> for bags through the hole (3 points)</li>
+              <li>Tap <span class="key">On</span> for bags on the board (1 point)</li>
+              <li>Tap <span class="key">Off</span> for missed bags (0 points)</li>
+            </ul>
+            <p>This provides the most accurate statistics but takes slightly longer to enter.</p>
+
+            <h4>Skip Off Bags</h4>
+            <p>Only record successful throws:</p>
+            <ul>
+              <li>Tap <span class="key">In</span> for bags through the hole</li>
+              <li>Tap <span class="key">On</span> for bags on the board</li>
+              <li>Off bags are calculated automatically (4 minus In minus On)</li>
+            </ul>
+            <p>This speeds up scoring while maintaining accuracy.</p>
+
+            <h4>Enter Totals</h4>
+            <p>Enter the point total directly:</p>
+            <ul>
+              <li>Select points scored (0 to 12)</li>
+              <li>The app determines the bag breakdown</li>
+            </ul>
+            <p>For some point values, multiple breakdowns are possible:</p>
+            <ul>
+              <li><strong>3 points</strong> could be 1 In + 3 Off, or 3 On + 1 Off</li>
+              <li><strong>4 points</strong> could be 1 In + 1 On + 2 Off, or 4 On</li>
+              <li><strong>6 points</strong> could be 2 In + 2 Off, or 1 In + 3 On</li>
+            </ul>
+            <p>When this happens, a popup asks you to select the correct breakdown.</p>
+          </div>
+        </section>
+
+        <!-- Keeping Score -->
+        <section id="keeping-score" class="help-section">
+          <h2><span class="icon">📝</span> Keeping Score</h2>
+
+          <h3>Using Tap to Score</h3>
+          <ol>
+            <li>After starting a match, swipe to the Scorekeeping tab</li>
+            <li>The view rotates to landscape automatically</li>
+            <li><strong>Tap the top half</strong> of a team's panel to add 1 point</li>
+            <li><strong>Tap the bottom half</strong> to subtract 1 point (for corrections)</li>
+            <li>Continue until a team reaches 21 points</li>
+          </ol>
+          <p>The score displays update with a subtle animation when changed.</p>
+
+          <h3>Using Bag Scoring</h3>
+          <ol>
+            <li>After starting a match, swipe to the Scorekeeping tab</li>
+            <li>You'll see both teams' scoring panels</li>
+            <li>For each team, record bags using the <span class="key">In</span>/<span class="key">On</span>/<span class="key">Off</span> buttons:
+              <ul>
+                <li>Each button shows a count and point total</li>
+                <li>Tap to increment the count</li>
+                <li>The button updates to show bags recorded</li>
+              </ul>
+            </li>
+            <li>Each team can record up to 4 bags per round</li>
+          </ol>
+
+          <h3>Submitting Rounds</h3>
+          <p>After both teams have recorded their bags:</p>
+          <ol>
+            <li>The <span class="key">Submit Round</span> button becomes active</li>
+            <li>Tap it to calculate and apply the round's scores</li>
+            <li>Cancellation scoring is applied automatically</li>
+            <li>The round counter advances</li>
+            <li>Bag counts reset for the next round</li>
+          </ol>
+
+          <h3>Undoing Mistakes</h3>
+          <p>Made an error? You can fix it:</p>
+          <p><strong>Before submitting:</strong></p>
+          <ul>
+            <li>Tap a bag type button again to adjust the count</li>
+            <li>Counts cycle through valid values</li>
+          </ul>
+          <p><strong>After submitting:</strong></p>
+          <ul>
+            <li>Tap <span class="key">Revert Last Round</span> to undo the submission</li>
+            <li>The previous round's data is restored</li>
+            <li>Make your corrections and resubmit</li>
+          </ul>
+
+          <h3>Game Over and Match Winner</h3>
+          <p>When a team reaches 21 points:</p>
+          <ol>
+            <li>The game ends immediately</li>
+            <li>A winner announcement appears</li>
+            <li>Confetti celebrates the victory</li>
+            <li>The game win is recorded for the match</li>
+          </ol>
+          <p>In multi-game matches:</p>
+          <ul>
+            <li>The win counter updates (shown as circles)</li>
+            <li>Tap to start the next game</li>
+            <li>When a team wins enough games, the match ends</li>
+          </ul>
+        </section>
+
+        <!-- Cornhole Scoring Rules -->
+        <section id="scoring-rules" class="help-section">
+          <h2><span class="icon">📋</span> Cornhole Scoring Rules</h2>
+
+          <h3>Points System</h3>
+          <p>Each bag earns points based on where it lands:</p>
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th>Landing</th>
+                <th>Points</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>In</strong></td><td>3</td><td>Bag goes through the hole</td></tr>
+              <tr><td><strong>On</strong></td><td>1</td><td>Bag lands and stays on the board</td></tr>
+              <tr><td><strong>Off</strong></td><td>0</td><td>Bag misses the board or slides off</td></tr>
+              <tr><td><strong>Foul</strong></td><td>0</td><td>Rule violation (stepping over the line, etc.)</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Cancellation Scoring</h3>
+          <p>Toss Tally uses <strong>cancellation scoring</strong> (also called "netting"), which is standard in competitive cornhole:</p>
+          <p><strong>How it works:</strong></p>
+          <ol>
+            <li>Both teams throw their 4 bags in a round</li>
+            <li>Calculate each team's raw points (0-12 possible)</li>
+            <li>Subtract the lower score from the higher score</li>
+            <li>Only the team with more points scores — they get the difference</li>
+          </ol>
+          <div class="tip-box">
+            <strong>Example:</strong><br>
+            Team A throws: 2 In (6 pts) + 1 On (1 pt) + 1 Off (0 pts) = <strong>7 points</strong><br>
+            Team B throws: 1 In (3 pts) + 2 On (2 pts) + 1 Off (0 pts) = <strong>5 points</strong><br>
+            <strong>Result:</strong> Team A scores 7 - 5 = <strong>2 net points</strong>. Team B scores <strong>0 points</strong>.
+          </div>
+          <p>This keeps games competitive and prevents runaway scores.</p>
+
+          <h3>Race to 21</h3>
+          <ul>
+            <li>The first team to reach <strong>21 points</strong> wins the game</li>
+            <li>There is no "bust" rule — you cannot go over and lose points</li>
+            <li>If both teams would reach 21 in the same round, the team with more points wins</li>
+            <li>Most games last 15-25 rounds</li>
+          </ul>
+        </section>
+
+        <!-- Multiplayer Features -->
+        <section id="multiplayer" class="help-section">
+          <h2><span class="icon">📡</span> Multiplayer Features</h2>
+          <p>Share your game with spectators or collaborate with others to keep score using Bluetooth.</p>
+
+          <h3>Broadcasting for Spectators</h3>
+          <p><strong>What it does:</strong> Shares your live scoreboard publicly so anyone nearby can watch.</p>
+          <p><strong>To start broadcasting:</strong></p>
+          <ol>
+            <li>On the Setup tab, find the "Broadcast" section</li>
+            <li>Toggle on <span class="key">Broadcast for Spectators</span></li>
+            <li>A status shows "Broadcasting" with viewer count</li>
+          </ol>
+          <p><strong>What spectators see:</strong></p>
+          <ul>
+            <li>Live score updates</li>
+            <li>Team names and colors</li>
+            <li>Current round and game information</li>
+            <li>They cannot modify scores — view only</li>
+          </ul>
+          <p><strong>Range:</strong> Approximately 30-50 feet, depending on environment.</p>
+
+          <h3>Hosting for Collaborators</h3>
+          <p><strong>What it does:</strong> Allows another person to help keep score from their own device.</p>
+          <p><strong>To start hosting:</strong></p>
+          <ol>
+            <li>On the Setup tab, find the "Host" section</li>
+            <li>Toggle on <span class="key">Host for Collaborators</span></li>
+            <li>A QR code appears on your screen</li>
+            <li>Have your collaborator scan this code</li>
+          </ol>
+          <p><strong>Security:</strong></p>
+          <ul>
+            <li>The QR code contains a secure authentication key</li>
+            <li>Only people who scan the code can modify scores</li>
+            <li>Commands are cryptographically signed to prevent tampering</li>
+          </ul>
+
+          <h3>Dual Mode</h3>
+          <p>Combine broadcasting and hosting:</p>
+          <ul>
+            <li>Public spectators can watch (read-only)</li>
+            <li>Authenticated collaborators can help score</li>
+            <li>Ideal for tournaments or events with both audiences</li>
+          </ul>
+
+          <h3>Watching Nearby Matches</h3>
+          <p><strong>To find matches to watch:</strong></p>
+          <ol>
+            <li>Go to the <strong>Feed</strong> tab</li>
+            <li>The "Watch Nearby" section shows available matches</li>
+            <li>Swipe through the carousel to browse matches</li>
+            <li>Tap a match card to view the live scoreboard</li>
+          </ol>
+          <p><strong>What you'll see:</strong></p>
+          <ul>
+            <li>Team names and current scores</li>
+            <li>Signal strength indicator (colored bars)</li>
+            <li>"Stale" indicator if connection is lost</li>
+          </ul>
+          <p><strong>To disconnect:</strong> Tap the back button to return to the match list.</p>
+
+          <h3>Joining as a Collaborator</h3>
+          <p><strong>To join someone's match as a collaborator:</strong></p>
+          <ol>
+            <li>On the Setup tab, select <strong>Join</strong> mode</li>
+            <li>Tap <span class="key">Scan QR Code</span></li>
+            <li>Point your camera at the host's QR code</li>
+            <li>Once connected, you can record scores</li>
+          </ol>
+          <p><strong>Your score changes:</strong></p>
+          <ul>
+            <li>Sync instantly with the host device</li>
+            <li>The host sees your updates in real-time</li>
+            <li>Both devices show the same scores</li>
+          </ul>
+        </section>
+
+        <!-- Statistics -->
+        <section id="statistics" class="help-section">
+          <h2><span class="icon">📊</span> Statistics</h2>
+          <p>When using Bag Scoring mode, Toss Tally tracks detailed performance statistics.</p>
+
+          <h3>Understanding Your Stats</h3>
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th>Stat</th>
+                <th>Meaning</th>
+                <th>Good Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>PPR</strong></td>
+                <td>Points Per Round — average points scored each round</td>
+                <td>4.0+ is solid, 5.0+ is excellent</td>
+              </tr>
+              <tr>
+                <td><strong>In%</strong></td>
+                <td>Percentage of bags that went in the hole</td>
+                <td>30%+ is good, 40%+ is excellent</td>
+              </tr>
+              <tr>
+                <td><strong>On%</strong></td>
+                <td>Percentage of bags that landed on the board</td>
+                <td>Varies by play style</td>
+              </tr>
+              <tr>
+                <td><strong>Off%</strong></td>
+                <td>Percentage of bags that missed</td>
+                <td>Lower is better</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Player Performance Tracking</h3>
+          <p>Statistics are tracked at multiple levels:</p>
+          <p><strong>Current Game:</strong></p>
+          <ul>
+            <li>Stats for this game only</li>
+            <li>Resets when a new game starts</li>
+          </ul>
+          <p><strong>Current Match:</strong></p>
+          <ul>
+            <li>Aggregated across all games in this match</li>
+            <li>Updates as each game completes</li>
+          </ul>
+          <p><strong>Player History:</strong></p>
+          <ul>
+            <li>Average stats across your last 10 matches</li>
+            <li>Persists across app sessions</li>
+            <li>Updated automatically when matches finish</li>
+          </ul>
+
+          <h3>Viewing Statistics</h3>
+          <p><strong>During a match:</strong></p>
+          <ul>
+            <li>Swipe to the Feed tab</li>
+            <li>The "Current Match Stats" card shows team performance</li>
+            <li>Tap a player's name to see individual stats</li>
+          </ul>
+          <div class="tip-box blue">
+            <strong>Note:</strong> Statistics require Bag Scoring mode. Tap to Score does not track bag-level data.
+          </div>
+        </section>
+
+        <!-- Match History -->
+        <section id="match-history" class="help-section">
+          <h2><span class="icon">🏆</span> Match History</h2>
+
+          <h3>Automatic Saving</h3>
+          <p>Toss Tally automatically saves your match progress:</p>
+          <ul>
+            <li>Scores are saved after each round</li>
+            <li>Team names and settings are preserved</li>
+            <li>Player assignments are remembered</li>
+            <li>Broadcasting/hosting state is maintained</li>
+          </ul>
+
+          <h3>Resuming Matches</h3>
+          <p>If the app closes or your device sleeps:</p>
+          <ol>
+            <li>Reopen Toss Tally</li>
+            <li>Your active match loads automatically</li>
+            <li>All scores and rounds are restored</li>
+            <li>Continue playing from where you left off</li>
+          </ol>
+
+          <h3>Current Match Stats</h3>
+          <p>On the Feed tab, view real-time statistics for your active match:</p>
+          <ul>
+            <li>Team performance comparison</li>
+            <li>Individual player statistics</li>
+            <li>Round-by-round breakdown</li>
+          </ul>
+        </section>
+
+        <!-- Tips & Troubleshooting -->
+        <section id="troubleshooting" class="help-section">
+          <h2><span class="icon">💡</span> Tips & Troubleshooting</h2>
+
+          <h3>Best Practices</h3>
+          <p><strong>For accurate statistics:</strong></p>
+          <ul>
+            <li>Enter player names before starting (consistent names track history)</li>
+            <li>Use Bag Scoring mode for detailed tracking</li>
+            <li>Submit rounds promptly to avoid forgetting throws</li>
+          </ul>
+          <p><strong>For smooth gameplay:</strong></p>
+          <ul>
+            <li>Charge your device before long sessions</li>
+            <li>Keep Bluetooth enabled for multiplayer features</li>
+            <li>Use Tap to Score for quick casual games</li>
+          </ul>
+          <p><strong>For multiplayer:</strong></p>
+          <ul>
+            <li>Stay within 30-50 feet of connected devices</li>
+            <li>Avoid physical obstructions between devices</li>
+            <li>Keep the app in the foreground while broadcasting</li>
+          </ul>
+
+          <h3>Bluetooth Troubleshooting</h3>
+          <details class="faq-item">
+            <summary>"Bluetooth must be enabled"</summary>
+            <div class="faq-answer">
+              <p>Open Settings > Bluetooth and turn it on. Return to Toss Tally.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>"Bluetooth unauthorized"</summary>
+            <div class="faq-answer">
+              <p>Open Settings > Privacy > Bluetooth. Find Toss Tally and enable access. Restart the app.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Can't find nearby matches</summary>
+            <div class="faq-answer">
+              <ul>
+                <li>Ensure Bluetooth is on for both devices</li>
+                <li>Move closer to the broadcasting device</li>
+                <li>Ask the host to verify they're broadcasting</li>
+                <li>Try pulling down to refresh the match list</li>
+              </ul>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Connection keeps dropping</summary>
+            <div class="faq-answer">
+              <ul>
+                <li>Move closer to reduce interference</li>
+                <li>Check for obstacles (walls, crowds)</li>
+                <li>Verify both devices have sufficient battery</li>
+                <li>Try restarting the broadcast/connection</li>
+              </ul>
+            </div>
+          </details>
+
+          <h3>Common Questions</h3>
+          <details class="faq-item">
+            <summary>Can I change the scoring mode during a match?</summary>
+            <div class="faq-answer">
+              <p>No, scoring mode is locked once a match starts. Tap "Start New Match" to change modes, but this will end your current match.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Why does "Enter Totals" sometimes ask me to pick a breakdown?</summary>
+            <div class="faq-answer">
+              <p>Some point totals (3, 4, and 6) can result from different bag combinations. The app asks which one occurred so statistics remain accurate.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How far does Bluetooth reach?</summary>
+            <div class="faq-answer">
+              <p>Typically 30-50 feet in open space. Walls, crowds, and interference can reduce range.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Is my data synced to the cloud?</summary>
+            <div class="faq-answer">
+              <p>No, all data stays on your device. Use multiplayer features to share live scores with nearby devices.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I export my match history?</summary>
+            <div class="faq-answer">
+              <p>Match data is stored locally on your device. Currently, there is no export feature.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What happens if I close the app mid-game?</summary>
+            <div class="faq-answer">
+              <p>Your match is saved automatically. When you reopen the app, it resumes where you left off.</p>
+            </div>
+          </details>
+        </section>
+
+        <!-- Glossary -->
+        <section id="glossary" class="help-section">
+          <h2><span class="icon">📚</span> Glossary</h2>
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th>Term</th>
+                <th>Definition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Bag</strong></td><td>The filled pouch thrown toward the board</td></tr>
+              <tr><td><strong>In</strong></td><td>A bag that goes through the hole, scoring 3 points</td></tr>
+              <tr><td><strong>On</strong></td><td>A bag that lands and stays on the board, scoring 1 point</td></tr>
+              <tr><td><strong>Off</strong></td><td>A bag that misses the board entirely, scoring 0 points</td></tr>
+              <tr><td><strong>Foul</strong></td><td>An illegal throw (e.g., stepping over the line), scoring 0 points</td></tr>
+              <tr><td><strong>Round</strong></td><td>One turn where each team throws all 4 of their bags</td></tr>
+              <tr><td><strong>Frame</strong></td><td>Another term for round</td></tr>
+              <tr><td><strong>Cancellation</strong></td><td>Scoring method where teams' points offset each other</td></tr>
+              <tr><td><strong>Netting</strong></td><td>Another term for cancellation scoring</td></tr>
+              <tr><td><strong>Four-bagger</strong></td><td>Getting all 4 bags in the hole in a single round (12 points)</td></tr>
+              <tr><td><strong>PPR</strong></td><td>Points Per Round — a player's average score per round</td></tr>
+              <tr><td><strong>Broadcasting</strong></td><td>Sharing your scoreboard via Bluetooth for spectators</td></tr>
+              <tr><td><strong>Hosting</strong></td><td>Allowing authenticated collaborators to help keep score</td></tr>
+              <tr><td><strong>Collaborator</strong></td><td>Someone with permission to update scores on a hosted match</td></tr>
+              <tr><td><strong>Spectator</strong></td><td>Someone watching a broadcast (view-only, cannot edit)</td></tr>
+              <tr><td><strong>Discovery Code</strong></td><td>6-character code used to find a specific match via Bluetooth</td></tr>
+              <tr><td><strong>Match</strong></td><td>A complete competition, possibly spanning multiple games</td></tr>
+              <tr><td><strong>Game</strong></td><td>A single race to 21 points</td></tr>
+              <tr><td><strong>Best of X</strong></td><td>Match format requiring a team to win a certain number of games</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <p style="text-align: center; color: rgba(255, 255, 255, 0.5); margin-top: 48px; font-style: italic;">
+          Toss Tally — Track every toss, celebrate every win.
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/help.html">Help</a>
+      <a href="/contact.html">Contact Us</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copyright">&copy; 2025 Toss Tally. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Highlight active TOC section based on scroll position
+    const sections = document.querySelectorAll('.help-section');
+    const tocLinks = document.querySelectorAll('.help-toc a');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
